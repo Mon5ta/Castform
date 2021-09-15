@@ -1,0 +1,2 @@
+# Castform
+# Castform This is a small weather forecast app that is using the **API** of [openweathermap.org](http://openweathermap.org "openweathermap.org"). If you want to make this app work you have to register and get your own **API KEY** (this is not a promotion I am just using this service) and replace the demoToken in WeatherReportCall.java with yours or implement your own weather API service. THIS APP IS **NOT** FOR COMMERCIAL USE.
