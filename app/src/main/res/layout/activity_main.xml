@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.MainActivity"
+    android:clipChildren="false"
+    android:background="@color/dark">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.875" />
+
+    <com.borutsky.neumorphism.NeumorphicFrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="30dp"
+        app:background_color="@color/dark2"
+        app:corner_radius="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shape="rectangle"
+        app:state="concave">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/locationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/textColor"
+                android:textSize="35sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/descriptionValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/textColor"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/castformFrameLayout"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical2"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal0"
+                android:layout_marginEnd="15dp"
+                />
+
+
+            <com.borutsky.neumorphism.NeumorphicFrameLayout
+                android:id="@+id/castformFrameLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal0"
+                app:layout_constraintEnd_toStartOf="@+id/descriptionValue"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal0"
+                app:shape="circle"
+                app:state="concave"
+                app:background_color="@color/dark2"
+                android:padding="5dp">
+                <ImageView
+                    android:id="@+id/castformImageView"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/castform_clear"
+                    android:contentDescription="@string/castform"
+                    android:layout_gravity="center"/>
+            </com.borutsky.neumorphism.NeumorphicFrameLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/temperatureValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal1"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical3"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical3"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal1" />
+
+            <ImageView
+                android:id="@+id/temperatureImageView"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_thermometer"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal1"
+                app:layout_constraintEnd_toStartOf="@id/guidelineVertical0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal1"
+                app:tint="@color/textColor" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/temperature"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/temperature"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal1"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical1"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical0"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal1" />
+
+            <ImageView
+                android:id="@+id/minTemperatureImageView"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_thermometer_down"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal2"
+                app:layout_constraintEnd_toEndOf="@+id/guidelineVertical0"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
+                app:tint="@color/textColor" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/minTemperature"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/min"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal2"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical1"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical0"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/minTemperatureValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal2"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical3"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical3"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2" />
+
+            <ImageView
+                android:id="@+id/maxTemperatureImageView"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_thermometer_up"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal3"
+                app:layout_constraintEnd_toEndOf="@+id/guidelineVertical0"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal3"
+                app:tint="@color/textColor" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/maxTemperature"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/max"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal3"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical1"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical0"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/maxTemperatureValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal3"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical3"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical3"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/humidityValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal4"
+                app:layout_constraintEnd_toEndOf="@+id/guidelineVertical3"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical3"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal4" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/humidity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Υγρασία"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal4"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical1"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical0"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal4" />
+
+            <ImageView
+                android:id="@+id/humidityImageView"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_humidity"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal4"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical0"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal4"
+                app:tint="@color/textColor" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/pressure"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal5"
+                app:layout_constraintEnd_toEndOf="@+id/guidelineVertical1"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical0"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal5" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pressureValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal5"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical3"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical3"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal5" />
+
+            <ImageView
+                android:id="@+id/pressureImageView"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_pressure"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal5"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical0"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal5"
+                app:tint="@color/textColor" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/windSpeed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/wind"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal6"
+                app:layout_constraintEnd_toEndOf="@+id/guidelineVertical1"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical0"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal6" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/windSpeedValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal6"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical3"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical3"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal6" />
+
+            <ImageView
+                android:id="@+id/windImageView"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_wind"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal6"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical0"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal6"
+                app:tint="@color/textColor" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/windDirection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/direction"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal7"
+                app:layout_constraintEnd_toEndOf="@+id/guidelineVertical1"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical0"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal7" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/windDirectionValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal7"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical3"
+                app:layout_constraintStart_toStartOf="@id/guidelineVertical3"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal7" />
+
+            <ImageView
+                android:id="@+id/windDirectionImageView"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_direction"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal7"
+                app:layout_constraintEnd_toEndOf="@id/guidelineVertical0"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal7"
+                app:tint="@color/textColor" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineVertical0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.225" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineVertical1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.7" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineVertical2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineVertical3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.8" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineHorizontal0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineHorizontal1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.33" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineHorizontal2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.43" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineHorizontal3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.53" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineHorizontal4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.63" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineHorizontal5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.73" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineHorizontal6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.83" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineHorizontal7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.93" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.borutsky.neumorphism.NeumorphicFrameLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:clipChildren="false">
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:fabCradleMargin="7dp"
+            app:fabCradleRoundedCornerRadius="45dp"
+            app:fabAlignmentMode="center"
+            app:fabAnimationMode="slide"
+            app:contentInsetStart="0dp"
+            app:fabCradleVerticalOffset="7dp"
+            app:menu="@menu/bottom_bar_menu"
+            app:backgroundTint="@color/dark">
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@id/bottomBar"
+            android:gravity="center_horizontal"
+            android:src="@drawable/ic_plus"
+            android:backgroundTint="@color/details"
+            android:contentDescription="@string/add" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

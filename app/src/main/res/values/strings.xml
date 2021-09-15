@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Castform</string>
+    <string name="getID">Get ID</string>
+    <string name="getLocation">Get location</string>
+    <string name="value">value</string>
+    <string name="location">Location</string>
+    <string name="search">Αναζήτηση τοποθεσίας</string>
+    <string name="add">add</string>
+    <string name="temperature">Θερμοκρασία</string>
+    <string name="minΜax">Ελάχιστη \n Μέγιστη</string>
+    <string name="min">Ελάχιστη</string>
+    <string name="max">Μέγιστη</string>
+    <string name="pressure">Ατ. πίεση</string>
+    <string name="wind">Άνεμος</string>
+    <string name="direction">Κατεύθυνση\n(Ανέμου)</string>
+    <string name="celsius">°C</string>
+    <string name="castform">castform</string>
+</resources>
