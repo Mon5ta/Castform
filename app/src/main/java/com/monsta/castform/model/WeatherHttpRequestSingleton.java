@@ -8,31 +8,31 @@ import com.android.volley.toolbox.Volley;
 
 public class WeatherHttpRequestSingleton {
 
-        private static WeatherHttpRequestSingleton instance;
-        private RequestQueue requestQueue;
-        private static Context context;
+    private static WeatherHttpRequestSingleton instance;
+    private static Context context;
+    private RequestQueue requestQueue;
 
-        private WeatherHttpRequestSingleton(Context context) {
-            WeatherHttpRequestSingleton.context = context;
-            requestQueue = getRequestQueue();
-        }
+    private WeatherHttpRequestSingleton(Context context) {
+        WeatherHttpRequestSingleton.context = context;
+        requestQueue = getRequestQueue();
+    }
 
-        public static synchronized WeatherHttpRequestSingleton getInstance(Context context) {
-            if (instance == null) {
-                instance = new WeatherHttpRequestSingleton(context);
-            }
-            return instance;
+    public static synchronized WeatherHttpRequestSingleton getInstance(Context context) {
+        if (instance == null) {
+            instance = new WeatherHttpRequestSingleton(context);
         }
+        return instance;
+    }
 
-        public RequestQueue getRequestQueue() {
-            if (requestQueue == null) {
-                requestQueue = Volley.newRequestQueue(context.getApplicationContext());
-            }
-            return requestQueue;
+    public RequestQueue getRequestQueue() {
+        if (requestQueue == null) {
+            requestQueue = Volley.newRequestQueue(context.getApplicationContext());
         }
+        return requestQueue;
+    }
 
-        public <T> void addToRequestQueue(Request<T> req) {
-            getRequestQueue().add(req);
-        }
+    public <T> void addToRequestQueue(Request<T> req) {
+        getRequestQueue().add(req);
+    }
 
 }

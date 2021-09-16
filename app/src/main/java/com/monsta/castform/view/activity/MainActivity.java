@@ -1,44 +1,23 @@
 package com.monsta.castform.view.activity;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.ActivityManager;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Looper;
-import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.app.ActivityCompat;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.monsta.castform.R;
 import com.monsta.castform.model.WeatherSnapshot;
 import com.monsta.castform.service.WeatherReportCall;
 
-import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
             maxTemperatureTextView, humidityTextView, pressureTextView, windSpeedTextView, windDirectionTextView,
             windSpeedDescriptionTextView;
     ImageView castformImageView;
-
-    FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,55 +86,29 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, description, Toast.LENGTH_SHORT).show();
             return true;
         });
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
-
-        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            getCurrentLocation();
+        if (getSharedPreferences("location", MODE_PRIVATE).getString("location", "").trim().isEmpty()) {
+            fillViewsByLocation("Evosmos");
         } else {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},100);
+            fillViewsByLocation(getSharedPreferences("location", MODE_PRIVATE).getString("location", ""));
         }
+        fab.setOnClickListener(view -> {
+            if (!locationTextView.getText().toString().trim().isEmpty()) {
+                SharedPreferences sharedPreferences = getSharedPreferences("location", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putString("location", locationTextView.getText().toString().trim());
+
+                editor.apply();
+                Toast.makeText(MainActivity.this, "Νινάκι αποθήκευσες την τοποθεσία!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    @SuppressLint("MissingPermission")
-    private void getCurrentLocation(){
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                @Override
-                public void onComplete(@NonNull Task<Location> task) {
-                    Location location = task.getResult();
-
-                    if (location != null) {
-                        initialFillViews(location.getLatitude(), location.getLongitude());
-                    } else {
-                        LocationRequest locationRequest = new LocationRequest()
-                                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                                .setInterval(10000)
-                                .setFastestInterval(1000)
-                                .setNumUpdates(1);
-
-                        LocationCallback locationCallback = new LocationCallback() {
-                            @Override
-                            public void onLocationResult(@NonNull LocationResult locationResult) {
-                                Location locationNewInstance = locationResult.getLastLocation();
-                                initialFillViews(locationNewInstance.getLatitude(), locationNewInstance.getLongitude());
-                            }
-                        };
-                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
-                    }
-                }
-            });
-        } else {
-            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
-    }
-
-    private void initialFillViews(double latitude, double longitude){
-        WeatherReportCall.getWeatherReportByLongLat(latitude, longitude, new WeatherReportCall.IVolleyMessenger() {
+    private void fillViewsByLocation(String location) {
+        WeatherReportCall.getWeatherReportByLocation(location, new WeatherReportCall.IVolleyMessenger() {
             @Override
             public void onResponse(WeatherSnapshot weatherSnapshot) {
+
                 defineCastform(weatherSnapshot.getMain());
 
                 locationTextView.setText(weatherSnapshot.getLocationTitle());
@@ -170,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 windSpeedTextView.setText(String.format("%s bft", windSpeedFromMsToBeaufort(weatherSnapshot.getWindSpeed())));
                 windDirectionTextView.setText(defineWindDirection(weatherSnapshot.getWindDirection()));
 
+                searchView.onActionViewCollapsed();
+                appBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
             }
 
             @Override
@@ -177,17 +130,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         }, MainActivity.this);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 100 && grantResults.length > 0 && (grantResults[0] + grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
-            getCurrentLocation();
-        } else {
-            ((ActivityManager)MainActivity.this.getSystemService(ACTIVITY_SERVICE)).clearApplicationUserData();
-            finish();
-        }
     }
 
     @Override
@@ -220,35 +162,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                WeatherReportCall.getWeatherReportByLocation(query, new WeatherReportCall.IVolleyMessenger() {
-                    @Override
-                    public void onResponse(WeatherSnapshot weatherSnapshot) {
-
-                        defineCastform(weatherSnapshot.getMain());
-
-                        locationTextView.setText(query.trim().substring(0, 1).toUpperCase() + query.trim().substring(1).toLowerCase());
-                        descriptionTextView.setText(weatherSnapshot.getDescription().trim().substring(0, 1).toUpperCase() + weatherSnapshot.getDescription().trim().substring(1).toLowerCase());
-                        temperatureTextView.setText(String.format("%s%s", weatherSnapshot.getTemperature(), getResources().getString(R.string.celsius)));
-                        minTemperatureTextView.setText(String.format("%s%s", weatherSnapshot.getMinTemperature(), getResources().getString(R.string.celsius)));
-                        maxTemperatureTextView.setText(String.format("%s%s", weatherSnapshot.getMaxTemperature(), getResources().getString(R.string.celsius)));
-                        humidityTextView.setText(String.format("%s%%", weatherSnapshot.getHumidity()));
-                        pressureTextView.setText(String.valueOf(weatherSnapshot.getPressure()));
-                        windSpeedTextView.setText(String.format("%s bft", windSpeedFromMsToBeaufort(weatherSnapshot.getWindSpeed())));
-                        windDirectionTextView.setText(defineWindDirection(weatherSnapshot.getWindDirection()));
-
-                        searchView.onActionViewCollapsed();
-                        appBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
-                    }
-
-                    @Override
-                    public void onError(String message) {
-                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-                    }
-                }, MainActivity.this);
+                fillViewsByLocation(query);
                 return true;
             }
 

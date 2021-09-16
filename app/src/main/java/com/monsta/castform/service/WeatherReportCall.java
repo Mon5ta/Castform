@@ -1,7 +1,6 @@
 package com.monsta.castform.service;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -14,17 +13,12 @@ public class WeatherReportCall {
 
     private static final String DEMO_API_TOKEN = "abcdefghijklmnopqrstuvwxyz";
     private static final String URL_FOR_WEATHER_REPORT_BY_LOCATION_PT1 = "https://api.openweathermap.org/data/2.5/weather?q=";
-    private static final String URL_FOR_WEATHER_REPORT_BY_LOCATION_PT2 = "&units=metric&lang=el&appid="+DEMO_API_TOKEN;
+    private static final String URL_FOR_WEATHER_REPORT_BY_LOCATION_PT2 = "&units=metric&lang=el&appid=" + DEMO_API_TOKEN;
 
     private static final String URL_FOR_WEATHER_REPORT_BY_LONG_LAT_PT1 = "https://api.openweathermap.org/data/2.5/weather?lat=";
     private static final String URL_FOR_WEATHER_REPORT_BY_LONG_LAT_PT2 = "&lon=";
     private static final String URL_FOR_WEATHER_REPORT_BY_LONG_LAT_PT3 = "&units=metric&lang=el&appid=";
     private static Context context;
-
-    public interface IVolleyMessenger {
-        void onResponse(WeatherSnapshot weatherSnapshot);
-        void onError(String message);
-    }
 
     public static void getWeatherReportByLocation(String location, IVolleyMessenger listener, Context context) {
 
@@ -57,6 +51,7 @@ public class WeatherReportCall {
         WeatherHttpRequestSingleton.getInstance(WeatherReportCall.context).addToRequestQueue(jsonObjectRequest);
 
     }
+
     public static void getWeatherReportByLongLat(double latitude, double longitude, IVolleyMessenger listener, Context context) {
 
         WeatherReportCall.context = context;
@@ -87,6 +82,12 @@ public class WeatherReportCall {
 
         WeatherHttpRequestSingleton.getInstance(WeatherReportCall.context).addToRequestQueue(jsonObjectRequest);
 
+    }
+
+    public interface IVolleyMessenger {
+        void onResponse(WeatherSnapshot weatherSnapshot);
+
+        void onError(String message);
     }
 
 }
