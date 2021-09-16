@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("location", locationTextView.getText().toString().trim());
 
                 editor.apply();
-                Toast.makeText(MainActivity.this, "Νινάκι αποθήκευσες την τοποθεσία!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Η τοποθεσία αποθηκεύτηκε!", Toast.LENGTH_SHORT).show();
             }
         });
     }
